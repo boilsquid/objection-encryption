@@ -1,8 +1,12 @@
 'use strict';
-const encryptionPlugin = require('./')({fields: ['ssn']});
+const ObjectionEncryption = require('./');
 const { Model } = require('objection');
 const Knex = require('knex');
 const { expect } = require('chai');
+
+const Encryption = ObjectionEncryption({
+  fields: ['ssn']
+});
 
 describe('encrypt and decrypt fields', () => {
   let knex;
@@ -39,7 +43,7 @@ describe('encrypt and decrypt fields', () => {
   });
 
   it('should insert an encrypted record to the database', async () => {
-    class Account extends encryptionPlugin(Model) {
+    class Account extends Encryption(Model) {
       static get tableName() {
         return 'Account';
       }
@@ -56,7 +60,7 @@ describe('encrypt and decrypt fields', () => {
   });
 
   it('should find and decrypt an encrypted record', async () => {
-    class Account extends encryptionPlugin(Model) {
+    class Account extends Encryption(Model) {
       static get tableName() {
         return 'Account';
       }
