@@ -6,7 +6,7 @@ This is an [Objection.js](https://vincit.github.io/objection.js/) plugin that en
   // Import plugin
   const ObjectionEncryption = require('objection-encryption');
 
-  // Create and instance with the fields that should be encrypted on insert and decrypted on find.
+  // Create an instance with the fields that should be encrypted on insert and decrypted on find.
   const Encryption = ObjectionEncryption({
     fields: ['ssn']
   });
