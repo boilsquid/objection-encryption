@@ -17,5 +17,8 @@
   },
   "engines": {
     "node": ">= 16.0.0"
+  },
+  "dependencies": {
+    "phin": "^3.7.0"
   }
 }

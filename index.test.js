@@ -5,7 +5,13 @@ const Knex = require('knex');
 const { expect } = require('chai');
 
 const Encryption = ObjectionEncryption({
-  fields: ['ssn']
+  fields: ['ssn'],
+  vault: {
+    hostname: '127.0.0.1:8200',
+    keyName: 'objection',
+    keyVersion: '1',
+    token: 'root'
+  }
 });
 
 describe('encrypt and decrypt fields', () => {
@@ -56,7 +62,7 @@ describe('encrypt and decrypt fields', () => {
     expect(resultSsn).to.not.equal(testSsn);
         
     const parts = resultSsn.split(':');
-    expect(parts.length).equal(3);
+    expect(parts.length).equal(4);
   });
 
   it('should find and decrypt an encrypted record', async () => {
