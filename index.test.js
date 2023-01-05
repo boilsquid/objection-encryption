@@ -70,7 +70,7 @@ describe('encrypt and decrypt fields', () => {
       .insert({ name: 'Jennifer', ssn: testSsn });
 
     const findResult = await Account.query(knex).findById(testAccount.id);
-
+  
     expect(findResult.ssn).equal(testSsn);
   });
 });

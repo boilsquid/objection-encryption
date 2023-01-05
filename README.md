@@ -18,4 +18,28 @@ This is an [Objection.js](https://vincit.github.io/objection.js/) plugin that en
     }
   }
 
+  const insertAccount = await Account.query()
+    .insert({ name: 'Jennifer', ssn: 'AAA-GG-SSSS' });
+  
+  console.log(insertAccount); 
+  // 
+  // Account {
+  //   name: 'Jennifer',
+  //   ssn: 'enc:XX+9B5624XevryfUnJew==:olJo1Uv3XCzv1ZRCW5Toiw==',
+  //   id: 2
+  // }
+  //
+
+  const findAccount = await Account.query()
+    .findById(2);
+  
+  console.log(findAccount);
+  // 
+  // Account {
+  //   name: 'Jennifer',
+  //   ssn: 'AAA-GG-SSSS',
+  //   id: 2
+  // }
+  //
+
 ```
