@@ -10,9 +10,9 @@
   "license": "MIT",
   "devDependencies": {
     "chai": "^4.3.7",
-    "knex": "^0.95.13",
+    "knex": "^2.3.0",
     "mocha": "^5.1.1",
-    "objection": "^1.4.0",
+    "objection": "^3.0.0",
     "sqlite3": "^5.1.4"
   },
   "engines": {
