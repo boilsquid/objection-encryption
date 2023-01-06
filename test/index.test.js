@@ -5,7 +5,8 @@ const Knex = require('knex');
 const { expect } = require('chai');
 
 const Encryption = ObjectionEncryption({
-  fields: ['ssn']
+  fields: ['ssn'],
+  aesKey: 'a12lflklkgilllll5lyllhlll87lsl4c' // test key
 });
 
 describe('encrypt and decrypt fields', () => {

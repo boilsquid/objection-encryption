@@ -1,5 +1,5 @@
 # Objection Encryption
-
+![Build Status](https://github.com/eoinboylan/objection-encryption/actions/workflows/ci.yml/badge.svg)
 <span class="badge-npmversion"><a href="https://npmjs.org/package/objection-encryption" title="View this project on NPM"><img src="https://img.shields.io/npm/v/objection-encryption.svg" alt="NPM version" /></a></span>
 
 This is an [Objection.js](https://vincit.github.io/objection.js/) plugin that enables field level encryption and decryption of values stored in a database.
