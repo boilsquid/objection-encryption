@@ -25,7 +25,7 @@ This is an [Objection.js](https://vincit.github.io/objection.js/) plugin that en
   // 
   // Account {
   //   name: 'Jennifer',
-  //   ssn: 'enc:XX+9B5624XevryfUnJew==:olJo1Uv3XCzv1ZRCW5Toiw==',
+  //   ssn: 'enc:v1:VUKkbuDKaTeV17MF6VzUiQ==:VWmo5uwsTbSacm13u704rjXg+lGzAZsJBdXAtgQe',
   //   id: 2
   // }
   //
