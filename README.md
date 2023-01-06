@@ -120,6 +120,6 @@ The key returned from Vault will be base64 encoded, to pass this to `objection-e
 ```javascript
   const Encryption = ObjectionEncryption({
     fields: ['ssn'],
-    aesKey: Buffer.from(vaultKey, 'base64)
+    aesKey: Buffer.from(vaultKey, 'base64')
   });
 ```
