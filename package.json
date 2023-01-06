@@ -1,6 +1,6 @@
 {
   "name": "objection-encryption",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Field level encryption for Objection.js",
   "main": "index.js",
   "scripts": {
