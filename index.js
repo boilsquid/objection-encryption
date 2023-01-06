@@ -1,33 +1,6 @@
 'use strict';
-const crypto = require('crypto');
+const cryptoLib = require('./crypto');
 const p = require('phin');
-
-const generateIv = () => {
-  return crypto.randomBytes(16);
-}
-
-const encrypt = (str, key) => {
-  const iv = generateIv()
-  const cipher = crypto.createCipheriv('aes-256-gcm', key, iv);
-
-  let enc1 = cipher.update(str, 'utf8');
-  let enc2 = cipher.final();
-
-  return `enc:v1:${iv.toString('base64')}:${Buffer.concat([enc1, enc2, cipher.getAuthTag()]).toString("base64")}`;
-};
-
-const decrypt = (enc, key) => {
-  const parts = enc.split(':');
-  const iv = Buffer.from(parts[2], 'base64');
-  const encValue = Buffer.from(parts[3], 'base64')
-  const tag = encValue.subarray(encValue.length - 16);
-  const cipherText = encValue.subarray(0, encValue.length - 16);
-  const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv);
-  decipher.setAuthTag(tag);
-  let str = decipher.update(cipherText, null, 'utf8');
-  str += decipher.final('utf8');
-  return str;
-};
 
 const getKeyFromVault = async (vaultOptions) => {
   const result = await p({
@@ -43,33 +16,41 @@ const getKeyFromVault = async (vaultOptions) => {
   return decodedKey;
 }
 
-module.exports = options => {
-  let key;
-
+const initKey = async (options) => {
   if (options.vault) {
-    getKeyFromVault(options.vault).then(res => key = res);
+    return await getKeyFromVault(options.vault)
+  } else if (options.aesKey) {
+    return options.aesKey  
   } else {
-    key = process.env.ENC_ROOT_KEY
+    if (process.env.ENC_ROOT_KEY === undefined) {
+      throw new Error('No encryption key provided');
+    }
+    return process.env.ENC_ROOT_KEY
   }
+}
 
+module.exports = (options) => {
+  const encryptionKey = initKey(options);
+  const crypto = cryptoLib(encryptionKey);
+  
   return Model => {
     return class extends Model {
       $beforeInsert(context) {
         super.$beforeInsert(context);
         
-        this.mutateOptionFields(encrypt);
+        this.mutateOptionFields(crypto.encrypt);
       }
 
       $beforeUpdate(context) {
         super.$beforeInsert(context);
 
-        this.mutateOptionFields(encrypt);
+        this.mutateOptionFields(crypto.encrypt);
       }
 
       $afterFind(context) {
         super.$afterFind(context);
 
-        this.mutateOptionFields(decrypt);
+        this.mutateOptionFields(crypto.decrypt);
       }
 
       mutateOptionFields(mutator) {
@@ -77,7 +58,7 @@ module.exports = options => {
         for (let i = 0; i < fields.length; i++) {
           if(options.fields.includes(fields[i])) {
             const toMutate = this[fields[i]];
-            this[fields[i]] = mutator(toMutate, key);
+            this[fields[i]] = mutator(toMutate);
           }
         }
       }
