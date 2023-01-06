@@ -4,7 +4,7 @@
   "description": "Field level encryption for Objection.js",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --slow 10 --timeout 15000 --reporter spec index.test.js"
+    "test": "mocha --slow 10 --timeout 15000 test/**"
   },
   "author": "Eoin Boylan <jb.eoin@gmail.com>",
   "license": "MIT",

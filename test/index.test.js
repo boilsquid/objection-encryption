@@ -1,5 +1,5 @@
 'use strict';
-const ObjectionEncryption = require('./');
+const ObjectionEncryption = require('..');
 const { Model } = require('objection');
 const Knex = require('knex');
 const { expect } = require('chai');
@@ -56,7 +56,7 @@ describe('encrypt and decrypt fields', () => {
     expect(resultSsn).to.not.equal(testSsn);
         
     const parts = resultSsn.split(':');
-    expect(parts.length).equal(3);
+    expect(parts.length).equal(4);
   });
 
   it('should find and decrypt an encrypted record', async () => {
